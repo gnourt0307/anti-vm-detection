@@ -1,0 +1,13 @@
+# Report contract, version 1
+
+Native output is UTF-8 XML with root `report` attributes `schema`, `tool`, `utc`, `complete`. Every `observation` has `module`, `id`, `category`, `source`, `status`, `admin`, `reboot`, and child text `value`, `option`, `effects`. XML special characters and control characters are handled; no DTD or external entity is used. PowerShell readers prohibit DTDs.
+
+Statuses: `observed` (measured, no marker rule fired), `indicator` (heuristic marker/presence), `absent` (specific lookup succeeded with absence), `error` (collection failed), `unsupported` (unavailable/disabled functionality), `unknown` (insufficient cross-check input), `inconsistent` (specified cross-check differs). `complete=true` means collectors did not emit error/unsupported; it does not mean all conceivable VM indicators were examined. A native-only report never includes WMI; inspect inventory `scan-state.txt` separately.
+
+IDs are generally keyed by CPUID leaf, SMBIOS type/handle, device instance path, adapter GUID, service name and WMI class/key/property. IDs can change when hardware is recreated. Process IDs, timings, runtime service state, display mode and uptime are volatile. Comparisons keep these changes visible; do not treat them as successful concealment.
+
+`observations.csv`/CLIXML combine native and WMI rows with equivalent fields. WMI coverage rows count returned objects per class. A failed class gets an error coverage row, not a synthetic clean inventory. `scan-state.txt` records native exit status, WMI error count, whether WMI was enabled, and UTC. The `latest.txt` pointer is published only after the complete set of report artifacts is written; partial *coverage* reports can still be fully written artifacts.
+
+Comparison accepts a scan directory (reads its CSV), a CSV, or native XML. Exact status/value differences produce Changed; either side missing/error/unsupported/unknown produces Unknown/coverage-or-enumeration-change. Duplicate IDs reject the input. Matching rows produce Unchanged. Category summaries count indicators on each side and changed/unknown rows; they do not convert counts to a success percentage. Comparing native-only XML against a full inventory will naturally produce unknown WMI rows; prefer like-for-like inputs.
+
+Operation logs and report timestamps use UTC. Reports can include usernames in paths, service command lines, MAC addresses, firmware serial numbers, VM UUIDs and device IDs. Export bundles intentionally exclude transaction manifests/registry exports, but their diagnostic files still deserve review before external sharing. No network upload is implemented.

@@ -4,7 +4,6 @@
 !/logs/.gitkeep
 /backups/*
 !/backups/.gitkeep
-/dist/
 /research/
 /build/*.o
 /build/*.obj
