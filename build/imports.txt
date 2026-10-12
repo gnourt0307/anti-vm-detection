@@ -1,0 +1,260 @@
+
+build/vmtool.exe:     file format pei-i386
+
+Characteristics 0x107
+	relocations stripped
+	executable
+	line numbers stripped
+	32 bit words
+
+Time/Date		Mon Oct 12 16:04:26 2026
+Magic			010b	(PE32)
+MajorLinkerVersion	2
+MinorLinkerVersion	28
+SizeOfCode		000d4e00
+SizeOfInitializedData	00121000
+SizeOfUninitializedData	00000c00
+AddressOfEntryPoint	000012e0
+BaseOfCode		00001000
+BaseOfData		000d6000
+ImageBase		00400000
+SectionAlignment	00001000
+FileAlignment		00000200
+MajorOSystemVersion	4
+MinorOSystemVersion	0
+MajorImageVersion	1
+MinorImageVersion	0
+MajorSubsystemVersion	6
+MinorSubsystemVersion	1
+Win32Version		00000000
+SizeOfImage		0014d000
+SizeOfHeaders		00000400
+CheckSum		002606a7
+Subsystem		00000003	(Windows CUI)
+DllCharacteristics	00000000
+SizeOfStackReserve	00200000
+SizeOfStackCommit	00001000
+SizeOfHeapReserve	00100000
+SizeOfHeapCommit	00001000
+LoaderFlags		00000000
+NumberOfRvaAndSizes	00000010
+
+The Data Directory
+Entry 0 00000000 00000000 Export Directory [.edata (or where ever we found it)]
+Entry 1 00123000 000011e4 Import Directory [parts of .idata]
+Entry 2 00000000 00000000 Resource Directory [.rsrc]
+Entry 3 00000000 00000000 Exception Directory [.pdata]
+Entry 4 00000000 00000000 Security Directory
+Entry 5 00000000 00000000 Base Relocation Directory [.reloc]
+Entry 6 00000000 00000000 Debug Directory
+Entry 7 00000000 00000000 Description Directory
+Entry 8 00000000 00000000 Special Directory
+Entry 9 00126004 00000018 Thread Storage Directory [.tls]
+Entry a 00000000 00000000 Load Configuration Directory
+Entry b 00000000 00000000 Bound Import Directory
+Entry c 0012333c 00000288 Import Address Table Directory
+Entry d 00000000 00000000 Delay Import Directory
+Entry e 00000000 00000000 CLR Runtime Header
+Entry f 00000000 00000000 Reserved
+
+There is an import table in .idata at 0x523000
+
+The Import Tables (interpreted .idata section contents)
+ vma:            Hint    Time      Forward  DLL       First
+                 Table   Stamp     Chain    Name      Thunk
+ 00123000	001230b4 00000000 00000000 00123f38 0012333c
+
+	DLL Name: ADVAPI32.DLL
+	vma:  Hint/Ord Member-Name Bound-To
+	1235c4	   26  AllocateAndInitializeSid
+	1235e0	   53  CheckTokenMembership
+	1235f8	   58  CloseServiceHandle
+	12360e	  169  EnumServicesStatusExW
+	123626	  177  FreeSid
+	123630	  359  OpenSCManagerW
+	123642	  361  OpenServiceW
+	123652	  375  QueryServiceConfigW
+	123668	  386  RegCloseKey
+	123676	  414  RegOpenKeyExW
+	123686	  424  RegQueryValueExW
+
+ 00123014	001230e4 00000000 00000000 00123f4c 0012336c
+
+	DLL Name: IPHLPAPI.DLL
+	vma:  Hint/Ord Member-Name Bound-To
+	12369a	   11  GetAdaptersAddresses
+
+ 00123028	001230ec 00000000 00000000 00124040 00123374
+
+	DLL Name: KERNEL32.dll
+	vma:  Hint/Ord Member-Name Bound-To
+	1236b2	   82  CloseHandle
+	1236c0	  142  CreateFileW
+	1236ce	  172  CreateSemaphoreW
+	1236e2	  188  CreateToolhelp32Snapshot
+	1236fe	  207  DeleteCriticalSection
+	123716	  212  DeleteFileW
+	123724	  219  DeviceIoControl
+	123736	  236  EnterCriticalSection
+	12374e	  279  ExitProcess
+	12375c	  300  FindClose
+	123768	  304  FindFirstFileA
+	12377a	  321  FindNextFileA
+	12378a	  341  FlushFileBuffers
+	12379e	  352  FreeLibrary
+	1237ac	  388  GetCommandLineA
+	1237be	  389  GetCommandLineW
+	1237d0	  447  GetCurrentProcessId
+	1237e6	  450  GetCurrentThread
+	1237fa	  451  GetCurrentThreadId
+	123810	  510  GetLastError
+	123820	  529  GetModuleHandleA
+	123834	  532  GetModuleHandleW
+	123848	  545  GetNativeSystemInfo
+	12385e	  577  GetProcAddress
+	123870	  623  GetSystemInfo
+	123880	  627  GetSystemTime
+	123890	  656  GetTickCount
+	1238a0	  672  GetVersionExW
+	1238b0	  700  GlobalMemoryStatusEx
+	1238c8	  734  InitializeCriticalSection
+	1238e4	  743  InterlockedDecrement
+	1238fc	  744  InterlockedExchange
+	123912	  747  InterlockedIncrement
+	12392a	  763  IsDBCSLeadByteEx
+	12393e	  814  LeaveCriticalSection
+	123956	  817  LoadLibraryA
+	123966	  829  LocalFree
+	123972	  853  MoveFileExW
+	123980	  860  MultiByteToWideChar
+	123996	  905  Process32FirstW
+	1239a8	  907  Process32NextW
+	1239ba	  922  QueryPerformanceCounter
+	1239d4	  923  QueryPerformanceFrequency
+	1239f0	  978  ReleaseSemaphore
+	123a04	 1091  SetLastError
+	123a14	 1120  SetThreadAffinityMask
+	123a2c	 1140  SetUnhandledExceptionFilter
+	123a4a	 1152  Sleep
+	123a52	 1171  TlsAlloc
+	123a5e	 1172  TlsFree
+	123a68	 1173  TlsGetValue
+	123a76	 1174  TlsSetValue
+	123a84	 1213  VirtualProtect
+	123a96	 1215  VirtualQuery
+	123aa6	 1223  WaitForSingleObject
+	123abc	 1247  WideCharToMultiByte
+	123ad2	 1267  WriteFile
+
+ 0012303c	001231d4 00000000 00000000 0012406c 0012345c
+
+	DLL Name: msvcrt.dll
+	vma:  Hint/Ord Member-Name Bound-To
+	123ade	   23  _fdopen
+	123ae8	   32  _fstat
+	123af2	   51  _lseek
+	123afc	   64  _read
+	123b04	   80  _strdup
+	123b0e	   82  _stricoll
+	123b1a	  109  _write
+
+ 00123050	001231f4 00000000 00000000 00124184 0012347c
+
+	DLL Name: msvcrt.dll
+	vma:  Hint/Ord Member-Name Bound-To
+	123b24	   88  __getmainargs
+	123b34	  119  __mb_cur_max
+	123b44	  131  __p__environ
+	123b54	  133  __p__fmode
+	123b62	  153  __set_app_type
+	123b74	  219  _cexit
+	123b7e	  285  _errno
+	123b88	  306  _filbuf
+	123b92	  319  _flsbuf
+	123b9c	  324  _fpreset
+	123ba8	  350  _fullpath
+	123bb4	  417  _iob
+	123bbc	  422  _isctype
+	123bc8	  689  _onexit
+	123bd2	  698  _pctype
+	123bdc	  753  _setmode
+	123be8	 1083  abort
+	123bf0	 1091  atexit
+	123bfa	 1093  atoi
+	123c02	 1098  calloc
+	123c0c	 1111  fclose
+	123c16	 1114  fflush
+	123c20	 1122  fopen
+	123c28	 1126  fputc
+	123c30	 1127  fputs
+	123c38	 1130  fread
+	123c40	 1131  free
+	123c48	 1137  fseek
+	123c50	 1139  ftell
+	123c58	 1142  fwrite
+	123c62	 1147  getenv
+	123c6c	 1150  getwc
+	123c74	 1169  iswctype
+	123c80	 1182  localeconv
+	123c8e	 1187  malloc
+	123c98	 1194  mbstowcs
+	123ca4	 1197  memchr
+	123cae	 1198  memcmp
+	123cb8	 1199  memcpy
+	123cc2	 1201  memmove
+	123ccc	 1203  memset
+	123cd6	 1213  putwc
+	123cde	 1220  realloc
+	123ce8	 1227  setlocale
+	123cf4	 1228  setvbuf
+	123cfe	 1229  signal
+	123d08	 1232  sprintf
+	123d12	 1240  strchr
+	123d1c	 1241  strcmp
+	123d26	 1242  strcoll
+	123d30	 1246  strerror
+	123d3c	 1248  strftime
+	123d48	 1249  strlen
+	123d52	 1259  strtod
+	123d5c	 1263  strtoul
+	123d66	 1264  strxfrm
+	123d70	 1277  tolower
+	123d7a	 1279  towlower
+	123d86	 1280  towupper
+	123d92	 1281  ungetc
+	123d9c	 1282  ungetwc
+	123da6	 1284  vfprintf
+	123db2	 1303  wcscoll
+	123dbc	 1307  wcsftime
+	123dc8	 1308  wcslen
+	123dd2	 1325  wcstombs
+	123dde	 1328  wcsxfrm
+
+ 00123064	00123304 00000000 00000000 001241ac 0012358c
+
+	DLL Name: setupapi.dll
+	vma:  Hint/Ord Member-Name Bound-To
+	123de8	  199  SetupDiDestroyDeviceInfoList
+	123e08	  202  SetupDiEnumDeviceInfo
+	123e20	  203  SetupDiEnumDeviceInterfaces
+	123e3e	  218  SetupDiGetClassDevsW
+	123e56	  231  SetupDiGetDeviceInstanceIdW
+	123e74	  234  SetupDiGetDeviceInterfaceDetailW
+	123e98	  236  SetupDiGetDeviceRegistryPropertyW
+
+ 00123078	00123324 00000000 00000000 001241c0 001235ac
+
+	DLL Name: SHELL32.DLL
+	vma:  Hint/Ord Member-Name Bound-To
+	123ebc	    2  CommandLineToArgvW
+
+ 0012308c	0012332c 00000000 00000000 001241d8 001235b4
+
+	DLL Name: USER32.dll
+	vma:  Hint/Ord Member-Name Bound-To
+	123ed2	  192  EnumDisplayDevicesW
+	123ee8	  197  EnumDisplaySettingsW
+	123f00	  638  wsprintfA
+
+ 001230a0	00000000 00000000 00000000 00000000 00000000
+

@@ -1,0 +1,13 @@
+/reports/*
+!/reports/.gitkeep
+/logs/*
+!/logs/.gitkeep
+/backups/*
+!/backups/.gitkeep
+/dist/
+/research/
+/build/*.o
+/build/*.obj
+/build/*.pdb
+/build/native-tests.exe
+*.tmp
