@@ -5,3 +5,14 @@
 2. curl.exe -4 --max-time 15 https://api.ipify.org
 
 3. curl.exe -6 --max-time 10 https://api6.ipify.org
+
+4. New-NetFirewallRule `
+  -DisplayName "SB-Allow-Proxy" `
+  -Direction Outbound `
+  -Action Allow `
+  -Program "C:\sing-box\sing-box.exe" `
+  -InterfaceAlias "Ethernet" `
+  -Protocol TCP `
+  -RemoteAddress "103.105.165.207" `
+  -RemotePort 5597 `
+  -Profile Public
