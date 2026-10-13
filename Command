@@ -1,33 +1,94 @@
-1. Get-NetRoute -AddressFamily IPv4 |
-    Sort-Object RouteMetric |
-    Format-Table DestinationPrefix, InterfaceAlias, NextHop, RouteMetric
+1. cd C:\sing-box
+.\sing-box.exe check -c config.json
+.\sing-box.exe run -c config.json
 
 2. curl.exe -4 --max-time 15 https://api.ipify.org
 
-3. curl.exe -6 --max-time 10 https://api6.ipify.org
+Open Notepad and save this as:
+C:\sing-box\enable-killswitch.ps1
 
-4. New-NetFirewallRule `
-  -DisplayName "SB-Allow-Proxy" `
-  -Direction Outbound `
-  -Action Allow `
-  -Program "C:\sing-box\sing-box.exe" `
-  -InterfaceAlias "Ethernet" `
-  -Protocol TCP `
-  -RemoteAddress "103.105.165.207" `
-  -RemotePort 5597 `
-  -Profile Public
 
-5. New-NetFirewallRule `
-  -DisplayName "SB-Allow-TUN" `
-  -Direction Outbound `
-  -Action Allow `
-  -InterfaceAlias "singtun" `
-  -Profile Public
+# Run ONLY inside your Windows 10 VM.
+# Run as Administrator.
 
-6. Get-NetFirewallRule -Enabled True -Direction Outbound -Action Allow |
-    Select-Object DisplayName, Name, Profile |
-    Format-Table -AutoSize
+$ErrorActionPreference = "Stop"
 
-7. Get-NetFirewallRule -DisplayName "SB-Allow-*"
+$Folder = "C:\sing-box"
+$Exe = "$Folder\sing-box.exe"
+$ProxyIP = "103.105.165.207"
+$ProxyPort = 5597
 
-8. 
+# 1. Back up current firewall
+netsh advfirewall export "$Folder\firewall-backup.wfw"
+
+if ($LASTEXITCODE -ne 0) {
+    throw "Firewall backup failed."
+}
+
+# 2. Enable Windows Firewall
+Set-NetFirewallProfile -Profile Public -Enabled True
+
+# 3. Allow sing-box to reach US proxy
+New-NetFirewallRule `
+    -DisplayName "SB-Allow-Proxy" `
+    -Direction Outbound `
+    -Action Allow `
+    -Program $Exe `
+    -InterfaceAlias "Ethernet" `
+    -Protocol TCP `
+    -RemoteAddress $ProxyIP `
+    -RemotePort $ProxyPort `
+    -Profile Public
+
+# 4. Allow application traffic via TUN
+New-NetFirewallRule `
+    -DisplayName "SB-Allow-TUN" `
+    -Direction Outbound `
+    -Action Allow `
+    -InterfaceAlias "singtun" `
+    -Profile Public
+
+# 5. Allow VirtualBox DHCP renewal
+New-NetFirewallRule `
+    -DisplayName "SB-Allow-DHCP" `
+    -Direction Outbound `
+    -Action Allow `
+    -InterfaceAlias "Ethernet" `
+    -Protocol UDP `
+    -LocalPort 68 `
+    -RemotePort 67 `
+    -Profile Public
+
+# 6. Disable other outbound allow rules
+# In this dedicated VM only
+$Keep = @(
+    "SB-Allow-Proxy",
+    "SB-Allow-TUN",
+    "SB-Allow-DHCP"
+)
+
+Get-NetFirewallRule `
+    -Enabled True `
+    -Direction Outbound `
+    -Action Allow |
+Where-Object {
+    $_.DisplayName -notin $Keep
+} |
+Disable-NetFirewallRule
+
+# 7. Block outbound traffic by default
+Set-NetFirewallProfile `
+    -Profile Public `
+    -DefaultOutboundAction Block
+
+Write-Host "Firewall policy applied."
+Write-Host "Test proxy and kill switch now."
+
+4. Active it:
+With sing-box running, open another Administrator PowerShell window and execute:
+
+powershell.exe -ExecutionPolicy Bypass -File "C:\sing-box\enable-killswitch.ps1"
+
+5. Whenever you restart the VM, open Administrator PowerShell:
+cd C:\sing-box
+.\sing-box.exe run -c config.json
