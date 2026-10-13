@@ -69,3 +69,5 @@ powershell.exe -ExecutionPolicy Bypass -File "C:\sing-box\enable-killswitch.ps1"
 5. Whenever you restart the VM, open Administrator PowerShell:
 cd C:\sing-box
 .\sing-box.exe run -c config.json
+
+https://earnapp.com/i/k5Lg7iIS
