@@ -16,3 +16,18 @@
   -RemoteAddress "103.105.165.207" `
   -RemotePort 5597 `
   -Profile Public
+
+5. New-NetFirewallRule `
+  -DisplayName "SB-Allow-TUN" `
+  -Direction Outbound `
+  -Action Allow `
+  -InterfaceAlias "singtun" `
+  -Profile Public
+
+6. Get-NetFirewallRule -Enabled True -Direction Outbound -Action Allow |
+    Select-Object DisplayName, Name, Profile |
+    Format-Table -AutoSize
+
+7. Get-NetFirewallRule -DisplayName "SB-Allow-*"
+
+8. 
