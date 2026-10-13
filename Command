@@ -29,6 +29,9 @@ if ($LASTEXITCODE -ne 0) {
 # 2. Enable Windows Firewall
 Set-NetFirewallProfile -Profile Public -Enabled True
 
+Get-NetFirewallRule -DisplayName "SB-Allow-*" -ErrorAction SilentlyContinue |
+    Remove-NetFirewallRule
+
 # 3. Allow sing-box to reach US proxy
 New-NetFirewallRule `
     -DisplayName "SB-Allow-Proxy" `
