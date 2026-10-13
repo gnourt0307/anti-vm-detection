@@ -19,7 +19,8 @@ $ProxyIP = "103.105.165.207"
 $ProxyPort = 5597
 
 # 1. Back up current firewall
-netsh advfirewall export "$Folder\firewall-backup.wfw"
+$BackupFile = Join-Path $Folder ("firewall-backup-" + (Get-Date -Format "yyyyMMdd-HHmmss") + ".wfw")
+netsh advfirewall export "$BackupFile"
 
 if ($LASTEXITCODE -ne 0) {
     throw "Firewall backup failed."
