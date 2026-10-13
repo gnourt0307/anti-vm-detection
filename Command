@@ -1,0 +1,7 @@
+1. Get-NetRoute -AddressFamily IPv4 |
+    Sort-Object RouteMetric |
+    Format-Table DestinationPrefix, InterfaceAlias, NextHop, RouteMetric
+
+2. curl.exe -4 --max-time 15 https://api.ipify.org
+
+3. curl.exe -6 --max-time 10 https://api6.ipify.org
